@@ -1,0 +1,120 @@
+<html>
+<head>
+<style>
+	html, body, canvas { margin: 0; padding: 0; overflow: hidden; background: #fff; }
+</style>
+<script>
+var context;
+var source;
+var analyser;
+var buffer;
+var audioBuffer;
+var canvas 
+var ctx; // canvas context
+var freqByteData; // frequeny domain data
+var timeByteData; // time domain data
+var sum = 0, low = 0, mid= 0, high = 0;
+var oldValues = [], period = 5, lastAverages = [];
+
+
+function finishLoad() {
+	console.log("loaded file");
+        source.buffer = audioBuffer;
+        source.loop = false;
+        source.noteOn(0.0);
+        window.requestAnimationFrame(draw);
+
+}
+
+function initAudio() {
+	for(var i = 0; i < 1024; i++) { oldValues.push([]); }
+     	context = new webkitAudioContext();
+	source = context.createBufferSource();
+	loadAudioBuffer("human-voice.mp4");
+	analyser =  context.createAnalyser();
+	analyser.fftSize = 2048;
+        source.connect(analyser);
+	analyser.connect(context.destination);
+	freqByteData = new Uint8Array(analyser.frequencyBinCount);
+	timeByteData = new Uint8Array(analyser.frequencyBinCount);
+}
+
+function loadAudioBuffer(url) {
+    // Load asynchronously
+    var request = new XMLHttpRequest();
+    request.open("GET", url, true);
+    request.responseType = "arraybuffer";
+    request.onload = function() { 
+	    console.log("stuff arrived");
+	    audioBuffer = context.createBuffer(request.response, false /*true*/);
+        finishLoad();  
+    }
+    request.send();
+}
+
+
+	function color(r, g, b, a) {
+		return 'rgba(' + Math.round(r) + ',' + Math.round(g) + ',' + Math.round(b) + ',' + (a ? a : 1) + ')';
+	}
+
+	function average(array) {
+		return array.reduce(function(a, b){ return a + b; }) / array.length;	
+	};
+
+	function draw() {
+
+		analyser.getByteFrequencyData(freqByteData);
+		analyser.getByteTimeDomainData(timeByteData);
+		console.log("indraw");
+
+
+		ctx.fillStyle = color(0, 0, 0, 1);
+		ctx.fillRect(0,0,canvas.width,canvas.height);
+
+		ctx.fillStyle = 'red';
+		for(var i = 0; i < 1024; i++) {
+			if(oldValues[i].length > period) oldValues[i].shift();
+			oldValues[i].push(timeByteData[i]);
+			var val = -average(oldValues[i]);
+
+			if(val - lastAverages[i] < -5) {
+				ctx.fillStyle = color(255,150,150);
+			}
+			else {
+				ctx.fillStyle = color(255,0,0);
+			}
+			ctx.fillRect(i*(canvas.width/1024), 255, canvas.width/1024, val);
+			lastAverages[i] = val;
+		}
+
+		requestAnimFrame(draw);
+	};
+
+
+
+function init(){
+	canvas = document.getElementById('canvas'),
+	ctx = canvas.getContext('2d');
+	canvas.width = 1024;
+	canvas.height = 400;
+	initAudio();
+}
+
+window.requestAnimFrame = (function(){
+	      return  window.requestAnimationFrame       || 
+	              window.webkitRequestAnimationFrame || 
+	              window.mozRequestAnimationFrame    || 
+	              window.oRequestAnimationFrame      || 
+	              window.msRequestAnimationFrame     || 
+	              function(/* function */ callback, /* DOMElement */ element){
+	                window.setTimeout(callback, 1000 / 60);
+	              };
+	      })();
+
+</script>
+</head>
+<body onload="init()">
+	<canvas id='canvas'></canvas>
+</body>
+
+</html>

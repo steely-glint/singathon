@@ -27,10 +27,10 @@ class MySQLDataRepository implements DataRepository {
 	}
 
 	public function addData(DataHolder $data) {
-		$query = "INSERT INTO data (blob,owner,room) ".
-				"VALUES (".$data->getBlob().",".$data->getOwner().",".$data->getRoom().")";
-
-		return !$this->voidQuery($query);
+		$query = "INSERT INTO data (`blob`,owner,room) ".
+				"VALUES (\"".$data->getBlob()."\",\"".$data->getOwner()."\",".$data->getRoom().")";
+		$status = $this->voidQuery($query);
+		return !$status;
 	}
 
 	public function getData($id) {
