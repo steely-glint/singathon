@@ -2,6 +2,7 @@ webrtc = {
     audioContext: null,
     recorder: null,
     room: null,
+    audioData: [],
     bootstrap: function(){
         var self = this;
 
@@ -35,8 +36,9 @@ webrtc = {
         });
     },
     main: function(){
-        console.log('Entering main.')
+        console.log('Entering main.');
         this.bindEvents();
+        this.getData();
     },
     bindEvents: function(){
         var self = this;
@@ -62,12 +64,42 @@ webrtc = {
                 var xhr = new XMLHttpRequest(),
                     upload = xhr.upload;
 
-                xhr.open('POST', '/serverside/storeBlob.php'+'?r='+self.room, true);
+                xhr.open('POST', '/serverside/storeBlob.php?r='+self.room, true);
                 xhr.onload = function(e) {
                     console.log("done");
                 };
                 xhr.send(blob);
             });
+        }
+    },
+    getData: function(callback){
+        console.log("get data");
+        var self = this;
+        $.ajax({
+            url: '/serverside/fetchBlobs.php?r='+self.room,
+            type: 'get',
+            success: function(data){
+                self.audioData = JSON.parse(data);
+                self.loadAudio()
+            }
+        });
+    },
+    loadAudio: function(data){
+        console.log("load data")
+        var self = this;
+        for (var i = 0, len = this.audioData.length; i < len; i++){
+            var request = new XMLHttpRequest();
+            request.open('GET', '/serverside/'+self.audioData[i].blob, true);
+            request.responseType = 'arraybuffer';
+            request.onload = function(){
+                console.log(i);
+                self.audioContext.decodeAudioData(request.response, function(buffer, i) {
+
+                    console.log("here", i);
+                    console.log(self.audioData);
+                });
+            }
+            request.send();
         }
     },
     getParamByName: function(name){
