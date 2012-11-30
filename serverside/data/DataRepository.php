@@ -1,0 +1,26 @@
+<?php
+include_once 'DataHolder.php';
+
+interface DataRepository {
+	/**
+	 * Add data to repository
+	 *
+	 * @param DataHolder $data
+	 * @return boolean status
+	 */
+	function addData(DataHolder $data);
+	/**
+	 * Remove data from repository
+	 *
+	 * @param integer $id
+	 * @return boolean status
+	 */
+	function remData($id);
+	/**
+	 * Fetch data from repository
+	 *
+	 * @param integer $id
+	 * @return DataHolder data
+	 */
+	function getData($id);
+}
