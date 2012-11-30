@@ -35,7 +35,8 @@ function initAudio() {
 	loadAudioBuffer("human-voice.mp4");
 	analyser =  vizer(context,canvas,90000);
         source.connect(analyser);
-	analyser.connect(context.destination);
+	var panner = addPanner(analyser);
+	panner.connect(context.destination);
 }
 
 function loadAudioBuffer(url) {

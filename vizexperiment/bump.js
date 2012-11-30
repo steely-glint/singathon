@@ -6,10 +6,14 @@ var deg = 0;
 var viz_canvas;
 var viz_dur;
 var viz_color;
+var viz_panner;
+var viz_acontext;
 function vizer(context,canvas,duration){
         window.requestAnimationFrame(vizdraw);
 	viz_canvas =canvas;
 	viz_dur = duration;
+	viz_acontext = context;
+
 
 	ctx = viz_canvas.getContext('2d');
 	analyser =  context.createAnalyser();
@@ -20,9 +24,17 @@ function vizer(context,canvas,duration){
 	return analyser;
 
 }
+function addPanner(ana){
+	viz_panner = viz_acontext.createPanner();
+	ana.connect(viz_panner);
+	return viz_panner;
+}
 function viz_setPlayer(n){
 	console.log("player "+n);
 	ctx.fillStyle = colors[n];
+	if (viz_panner){
+		viz_panner.setPosition(-1+n*(1/4),0,0.7);
+	}
 }
 var colors = [];
 
