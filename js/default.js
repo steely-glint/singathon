@@ -4,5 +4,9 @@
 
     $(document).ready(function(){
         webrtc.bootstrap();
+
+        $('.player').bind('onaudiobuffersready', function(array){
+            //PUT CODE HERE
+        })
     });
 })(jQuery)

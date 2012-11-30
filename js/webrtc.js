@@ -106,15 +106,7 @@ webrtc = {
         }
     },
     playAll: function(){
-        var current = this.playAudio(0);
-        console.log(current);
-    },
-    playAudio: function(index){
-        var source = this.audioContext.createBufferSource(); // creates a sound source
-        source.buffer = this.audioData[index].buffer;                         // tell the source which sound to play
-        source.connect(this.audioContext.destination);        // connect the source to the context's destination (the speakers)
-        source.noteOn(0);
-        return source;
+        $('.player').trigger('onaudiobuffersready', this.audioData);
     },
     getParamByName: function(name){
         var name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
