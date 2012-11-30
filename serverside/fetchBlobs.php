@@ -15,11 +15,11 @@ $dataArr = DataPool::getInstance()->getRoomData($roomId);
 if ( count($dataArr) == 0 ) die("0");
 
 // Assemble output
-$json = "{";
+$json = "[";
 foreach ( $dataArr as $data ) {
 	$json .= $data->toJSON().",";
 }
-$json = substr($json, 0, -1)."}";
+$json = substr($json, 0, -1)."]";
 
 // Print output
 echo $json;
