@@ -84,23 +84,37 @@ webrtc = {
             }
         });
     },
-    loadAudio: function(data){
-        console.log("load data")
+    loadAudio: function(){
         var self = this;
-        for (var i = 0, len = this.audioData.length; i < len; i++){
+            load(0);
+        function load(i){
+            if (i === self.audioData.length-1){
+                self.playAll();
+                return;
+            }
             var request = new XMLHttpRequest();
             request.open('GET', '/serverside/'+self.audioData[i].blob, true);
             request.responseType = 'arraybuffer';
             request.onload = function(){
-                console.log(i);
-                self.audioContext.decodeAudioData(request.response, function(buffer, i) {
-
-                    console.log("here", i);
-                    console.log(self.audioData);
+                self.audioContext.decodeAudioData(request.response, function(buffer) {
+                    self.audioData[i].buffer = buffer;
+                    i++;
+                    load(i);
                 });
             }
             request.send();
         }
+    },
+    playAll: function(){
+        var current = this.playAudio(0);
+        console.log(current);
+    },
+    playAudio: function(index){
+        var source = this.audioContext.createBufferSource(); // creates a sound source
+        source.buffer = this.audioData[index].buffer;                         // tell the source which sound to play
+        source.connect(this.audioContext.destination);        // connect the source to the context's destination (the speakers)
+        source.noteOn(0);
+        return source;
     },
     getParamByName: function(name){
         var name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
