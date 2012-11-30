@@ -1,7 +1,11 @@
 <?php
 include_once 'DataRepository.php';
 include_once 'MySQLDataRepository.php';
+include_once 'FileDataRepository.php';
 
+/**
+ * Data pool singleton fascade.
+ */
 class DataPool implements DataRepository {
 	/**
 	 * Singleton instance
@@ -10,17 +14,23 @@ class DataPool implements DataRepository {
 	 */
 	private static $instance;
 	/**
-	 * The data repository to use
+	 * Main data storage.
 	 *
 	 * @var DataRepository
 	 */
 	private $repos;
+	/**
+	 * File storage.
+	 *
+	 * @var FileDataRepository
+	 */
+	private $filerepos;
 
 	private function __construct() {
-		// TODO: mysql login stuffs
-		$this->repos = new MySQLDataRepository(
-		
-		);
+		// Use MySQL as main data storage.
+		$this->repos = new MySQLDataRepository();
+		// Initialize file repository.
+		$this->filerepos = new FileDataRepository();
 	}
 
 	/**
@@ -35,6 +45,12 @@ class DataPool implements DataRepository {
 	}
 
 	public function addData(DataHolder $data) {
+		$this->filerepos->addData($data);
+
+		$blob = $data->getBlob();
+		$filename = $data->getRoom()."-".md5($blob).".wav";
+		$data->setBlob($filename);
+
 		return $this->repos->addData($data);
 	}
 

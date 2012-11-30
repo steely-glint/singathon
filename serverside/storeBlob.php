@@ -3,11 +3,11 @@ include_once 'data/DataPool.php';
 include_once 'data/DataHolder.php';
 
 // The room ID: GET: [url]?r=...
-$roomId = ereg_replace("[^0-9]","",$_GET['r']);
+$roomId = preg_replace("[^0-9]","",$_GET['r']);
 // The owner: remote IP-address.
 $owner = $_SERVER['REMOTE_ADDR'];
 // The blob: POST: blob=...
-$blob = $_POST['blob'];
+$blob = file_get_contents("php://input");
 
 // Print 0 and die if input is invalid
 if ( strlen($roomId) == 0 || $roomId !== $_GET['r'] || strlen($blob) == 0 )

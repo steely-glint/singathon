@@ -27,10 +27,10 @@ class MySQLDataRepository implements DataRepository {
 	}
 
 	public function addData(DataHolder $data) {
-		$query = "INSERT INTO data (blob,owner,room) ".
-				"VALUES (".$data->getBlob().",".$data->getOwner().",".$data->getRoom().")";
-
-		return !$this->voidQuery($query);
+		$query = "INSERT INTO data (`blob`,owner,room) ".
+				"VALUES (\"".$data->getBlob()."\",\"".$data->getOwner()."\",".$data->getRoom().")";
+		$status = $this->voidQuery($query);
+		return !$status;
 	}
 
 	public function getData($id) {
@@ -68,7 +68,12 @@ class MySQLDataRepository implements DataRepository {
 		return $outArr;
 	}
 	
-	
+	/**
+	 * Querier made for returning a single row.
+	 *
+	 * @param string $query
+	 * @return array
+	 */
 	private function singleArrayQuery($query) {
 		@$result = $this->link->query($query);
 		if ( $result )  {
@@ -78,7 +83,13 @@ class MySQLDataRepository implements DataRepository {
 			return $this->link->error;
 		}
 	}
-	
+
+	/**
+	 * Querier made for returning multiple rows.
+	 *
+	 * @param string $query
+	 * @return array
+	 */
 	private function multiArrayQuery($query) {
 		@$result = $this->link->query($query);
 		if ( $result )  {
@@ -94,7 +105,14 @@ class MySQLDataRepository implements DataRepository {
 		}
 			
 	}
-	
+
+	/**
+	 * Querier made for returning void.
+	 * (IE, INSERT,REMOVE, etc...)
+	 *
+	 * @param string $query
+	 * @return boolean
+	 */
 	private function voidQuery($query) {
 		@$result = $this->link->query($query);
 		if ( $result )  {

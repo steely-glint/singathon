@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class MySQLDataRepository | WebRTC</title>
+
+	<script type="text/javascript" src="resources/combined.js?2093654556"></script>
+	<script type="text/javascript" src="elementlist.js?620623259"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+		</div>
+
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-DataHolder.html">DataHolder</a></li>
+				<li><a href="class-DataPool.html">DataPool</a></li>
+				<li><a href="class-FileDataRepository.html">FileDataRepository</a></li>
+				<li class="active"><a href="class-MySQLDataRepository.html">MySQLDataRepository</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-DataRepository.html">DataRepository</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class MySQLDataRepository</h1>
+
+
+	<div class="description">
+	
+<p>A data repository</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>MySQLDataRepository</span></b>			
+			 implements 
+				<a href="class-DataRepository.html"><span>DataRepository</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		
+
+		<b>Located at</b> <a href="source-class-MySQLDataRepository.html#4-124" title="Go to source code">singathon/serverside/data/MySQLDataRepository.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-MySQLDataRepository.html#13-23" title="Go to source code">__construct</a>( <span>mixed <var>$host</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$user</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$passwd</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$schema</var> = <span class="php-keyword1">NULL</span></span>, <span>mixed <var>$port</var> = <span class="php-keyword1">NULL</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__destruct" id="___destruct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___destruct">#</a>
+		<code><a href="source-class-MySQLDataRepository.html#25-27" title="Go to source code">__destruct</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addData" id="_addData">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addData">#</a>
+		<code><a href="source-class-MySQLDataRepository.html#29-34" title="Go to source code">addData</a>( <span><code><a href="class-DataHolder.html">DataHolder</a></code> <var>$data</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Add data to repository</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Add data to repository</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd><code><code><a href="class-DataHolder.html">DataHolder</a></code></code><br>$data</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>status<br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-DataRepository.html#_addData">DataRepository::addData()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getData" id="_getData">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-DataHolder.html">DataHolder</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getData">#</a>
+		<code><a href="source-class-MySQLDataRepository.html#36-45" title="Go to source code">getData</a>( <span>integer <var>$id</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Fetch data from repository</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Fetch data from repository</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$id</var></dt>
+					<dd><code>integer</code><br>$id</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-DataHolder.html">DataHolder</a></code></code><br>data<br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-DataRepository.html#_getData">DataRepository::getData()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="remData" id="_remData">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_remData">#</a>
+		<code><a href="source-class-MySQLDataRepository.html#47-51" title="Go to source code">remData</a>( <span>integer <var>$id</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Remove data from repository</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Remove data from repository</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$id</var></dt>
+					<dd><code>integer</code><br>$id</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>status<br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-DataRepository.html#_remData">DataRepository::remData()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getRoomData" id="_getRoomData">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getRoomData">#</a>
+		<code><a href="source-class-MySQLDataRepository.html#53-69" title="Go to source code">getRoomData</a>( <span>integer <var>$rid</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Fetch array of data belonging to specified room from repository</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Fetch array of data belonging to specified room from repository</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$rid</var></dt>
+					<dd><code>integer</code><br>$id</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>data<br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-DataRepository.html#_getRoomData">DataRepository::getRoomData()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		WebRTC API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>
