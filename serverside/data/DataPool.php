@@ -29,9 +29,9 @@ class DataPool implements DataRepository {
 	 * @return DataPool
 	 */
 	public static function getInstance() {
-		if ( $$this->instance == null )
-			$this->instance = new DataPool();
-		return $this->instance;
+		if ( DataPool::$instance == null )
+			DataPool::$instance = new DataPool();
+		return DataPool::$instance;
 	}
 
 	public function addData(DataHolder $data) {

@@ -36,7 +36,7 @@ class MySQLDataRepository implements DataRepository {
 	public function getData($id) {
 		$query = "SELECT * FROM data WHERE id=".$id;
 		$dataArr = $this->singleArrayQuery($query);
-		$data = new DataHolder($dataArr[1],$dataArr[2]);
+		$data = new DataHolder($dataArr['blob'],$dataArr['owner']);
 		return $data;
 	}
 
