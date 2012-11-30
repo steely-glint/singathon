@@ -13,11 +13,39 @@ var canvas
 var ctx; // canvas context
 var freqByteData; // frequeny domain data
 var timeByteData; // time domain data
-var sum = 0, low = 0, mid= 0, high = 0;
-var oldValues = [], period = 5, lastAverages = [];
-var arcValues = [];
 var deg = 0;
 
+//
+function vizer(canvas,duration){
+
+}
+var colors = [];
+function initColors(){
+	var Cyan= color(0, 174, 239);
+
+	var Yellow =color(213, 216, 0)
+
+	var Orange =color (207 ,145 ,18)
+
+	var Leaf = color(124 , 162 , 67);
+
+	var Red = color(237 , 25 , 62);
+
+	var Blue = color(0 ,103 , 180);
+
+	var Green = color(30 , 122 , 54);
+
+	var Pink  = color(210 , 115 , 158);
+	colors.push(Cyan);
+	colors.push(Yellow);
+	colors.push(Orange);
+	colors.push(Leaf);
+	colors.push(Red);
+	colors.push(Blue);
+	colors.push(Green);
+	colors.push(Pink);
+
+}
 
 function finishLoad() {
 	console.log("loaded file");
@@ -29,8 +57,6 @@ function finishLoad() {
 }
 
 function initAudio() {
-	for(var i = 0; i < 90; i++) { arcValues.push([]);}
-	for(var i = 0; i < 1024; i++) { oldValues.push([]); }
      	context = new webkitAudioContext();
 	source = context.createBufferSource();
 	loadAudioBuffer("human-voice.mp4");
@@ -83,7 +109,7 @@ function loadAudioBuffer(url) {
 		/*ctx.fillStyle = color(0, 0, 0, 1);
 		ctx.fillRect(deg*(canvas.width/90), 255, canvas.width/90,255 );
 		*/
-		ctx.fillStyle = 'red';
+		ctx.fillStyle = colors[deg/11];
 		ctx.fillRect(deg*(canvas.width/90), 255, canvas.width/180,mean*-2);
 		if(deg < 90) {
 			window.setTimeout(function(){
@@ -100,6 +126,7 @@ function init(){
 	ctx = canvas.getContext('2d');
 	canvas.width = 1024;
 	canvas.height = 400;
+	initColors();
 	initAudio();
 }
 
