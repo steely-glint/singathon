@@ -1,0 +1,69 @@
+<html>
+<head>
+<style>
+	html, body, canvas { margin: 0; padding: 0; overflow: hidden; background: #fff; }
+</style>
+<script src="bump.js"></script>
+<script>
+var context;
+var source;
+var analyser;
+var buffer;
+var audioBuffer;
+var canvas 
+var player =0;
+//function vizer(context,canvas,duration){}
+function partinc(){
+	console.log("loaded file");
+	viz_setPlayer(player)
+	player++;
+	if (player < 8){
+		window.setTimeout(partinc,10000);
+	}
+}
+function finishLoad() {
+        source.buffer = audioBuffer;
+        source.loop = false;
+	source.noteOn(0.0);
+	partinc();
+	console.log("loaded file");
+}
+
+function initAudio() {
+     	context = new webkitAudioContext();
+	source = context.createBufferSource();
+	loadAudioBuffer("human-voice.mp4");
+	analyser =  vizer(context,canvas,90000);
+        source.connect(analyser);
+	analyser.connect(context.destination);
+}
+
+function loadAudioBuffer(url) {
+    // Load asynchronously
+    var request = new XMLHttpRequest();
+    request.open("GET", url, true);
+    request.responseType = "arraybuffer";
+    request.onload = function() { 
+	    console.log("stuff arrived");
+	    audioBuffer = context.createBuffer(request.response, false /*true*/);
+        finishLoad();  
+    }
+    request.send();
+}
+
+function init(){
+	canvas = document.getElementById('canvas'),
+	ctx = canvas.getContext('2d');
+	canvas.width = 1024;
+	canvas.height = 400;
+	initColors();
+	initAudio();
+}
+
+</script>
+</head>
+<body onload="init()">
+	<canvas id='canvas'></canvas>
+</body>
+
+</html>
