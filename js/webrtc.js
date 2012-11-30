@@ -52,24 +52,21 @@ webrtc = {
         })
         $('.jsRecordSubmit').click(function(e){
             e.preventDefault();
-            self.sendData();
+            self.sendData(true);
         });
     },
     sendData: function(audio, video){
         var self = this;
         if (audio){
             this.recorder.exportWAV(function(blob){
-                $.ajax({
-                    url: ''+'?r='+self.room, //TODO
-                    type: 'post',
-                    data: blob,
-                    success: function(){
-                        console.log('Audio data sent.')
-                    },
-                    error: function(){
-                        console.log("Audio data send failed.")
-                    }
-                });
+                var xhr = new XMLHttpRequest(),
+                    upload = xhr.upload;
+
+                xhr.open('POST', '/serverside/storeBlob.php'+'?r='+self.room, true);
+                xhr.onload = function(e) {
+                    console.log("done");
+                };
+                xhr.send(blob);
             });
         }
     },
