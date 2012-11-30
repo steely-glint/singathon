@@ -3,7 +3,7 @@ include_once 'data/DataPool.php';
 include_once 'data/DataHolder.php';
 
 // The room ID: GET: [url]?r=...
-$roomId = ereg_replace("[^0-9]","",$_GET['r']);
+$roomId = preg_replace("[^0-9]","",$_GET['r']);
 // The owner: remote IP-address.
 $owner = $_SERVER['REMOTE_ADDR'];
 // The blob: POST: blob=...
