@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `data`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `data` (
   `id` int(11) NOT NULL,
-  `blob` blob,
+  `blob` varchar(256) DEFAULT NULL,
   `owner` varchar(16) DEFAULT NULL,
   `room` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-30 15:59:53
+-- Dump completed on 2012-11-30 17:30:47

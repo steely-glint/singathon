@@ -1,6 +1,7 @@
 <?php
 include_once 'DataRepository.php';
 include_once 'MySQLDataRepository.php';
+include_once 'FileDataRepository.php';
 
 class DataPool implements DataRepository {
 	/**
@@ -15,12 +16,15 @@ class DataPool implements DataRepository {
 	 * @var DataRepository
 	 */
 	private $repos;
+	/**
+	 * @var DataRepository
+	 */
+	private $filerepos;
 
 	private function __construct() {
 		// TODO: mysql login stuffs
-		$this->repos = new MySQLDataRepository(
-		
-		);
+		$this->repos = new MySQLDataRepository();
+		$this->filerepos = new FileDataRepository();
 	}
 
 	/**
@@ -35,6 +39,12 @@ class DataPool implements DataRepository {
 	}
 
 	public function addData(DataHolder $data) {
+		$this->filerepos->addData($data);
+
+		$blob = $data->getBlob();
+		$filename = $data->getRoom()."-".md5($blob).".wav";
+		$data->setBlob($filename);
+
 		return $this->repos->addData($data);
 	}
 
