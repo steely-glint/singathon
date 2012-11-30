@@ -12,6 +12,8 @@ if ( strlen($roomId) == 0 || $roomId !== $_GET['r'] )
 // Fetch data
 $dataArr = DataPool::getInstance()->getRoomData($roomId);
 
+if ( count($dataArr) == 0 ) die("0");
+
 // Assemble output
 $json = "{";
 foreach ( $dataArr as $data ) {
