@@ -3,6 +3,6 @@
     document.write('<scr'+'ipt src="/js/webrtc.js"></scr'+'ipt>');
 
     $(document).ready(function(){
-        webrtc.init();
+        webrtc.bootstrap();
     });
 })(jQuery)
