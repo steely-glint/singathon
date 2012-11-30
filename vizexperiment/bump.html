@@ -15,6 +15,8 @@ var freqByteData; // frequeny domain data
 var timeByteData; // time domain data
 var sum = 0, low = 0, mid= 0, high = 0;
 var oldValues = [], period = 5, lastAverages = [];
+var arcValues = [];
+var deg = 0;
 
 
 function finishLoad() {
@@ -27,6 +29,7 @@ function finishLoad() {
 }
 
 function initAudio() {
+	for(var i = 0; i < 90; i++) { arcValues.push([]);}
 	for(var i = 0; i < 1024; i++) { oldValues.push([]); }
      	context = new webkitAudioContext();
 	source = context.createBufferSource();
@@ -68,26 +71,26 @@ function loadAudioBuffer(url) {
 		console.log("indraw");
 
 
-		ctx.fillStyle = color(0, 0, 0, 1);
-		ctx.fillRect(0,0,canvas.width,canvas.height);
 
-		ctx.fillStyle = 'red';
+		var mean = 0;
 		for(var i = 0; i < 1024; i++) {
-			if(oldValues[i].length > period) oldValues[i].shift();
-			oldValues[i].push(timeByteData[i]);
-			var val = -average(oldValues[i]);
-
-			if(val - lastAverages[i] < -5) {
-				ctx.fillStyle = color(255,150,150);
-			}
-			else {
-				ctx.fillStyle = color(255,0,0);
-			}
-			ctx.fillRect(i*(canvas.width/1024), 255, canvas.width/1024, val);
-			lastAverages[i] = val;
+			mean += freqByteData[i];
+		}
+		mean = mean/1024;
+		console.log("deg ="+deg+" mean="+mean);
+		deg++ ;
+		
+		/*ctx.fillStyle = color(0, 0, 0, 1);
+		ctx.fillRect(deg*(canvas.width/90), 255, canvas.width/90,255 );
+		*/
+		ctx.fillStyle = 'red';
+		ctx.fillRect(deg*(canvas.width/90), 255, canvas.width/180,mean*-2);
+		if(deg < 90) {
+			window.setTimeout(function(){
+			console.log("Tick");
+			window.requestAnimFrame(draw)},1000);
 		}
 
-		requestAnimFrame(draw);
 	};
 
 
@@ -107,7 +110,7 @@ window.requestAnimFrame = (function(){
 	              window.oRequestAnimationFrame      || 
 	              window.msRequestAnimationFrame     || 
 	              function(/* function */ callback, /* DOMElement */ element){
-	                window.setTimeout(callback, 1000 / 60);
+	                window.setTimeout(callback, 1000/60);
 	              };
 	      })();
 
