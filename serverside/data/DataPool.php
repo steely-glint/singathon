@@ -45,4 +45,8 @@ class DataPool implements DataRepository {
 	public function remData($id) {
 		return $this->repos->remData($id);
 	}
+
+	public function getRoomData($rid) {
+		return $this->repos->getRoomData($rid);
+	}
 }

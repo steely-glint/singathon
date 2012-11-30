@@ -28,6 +28,7 @@ CREATE TABLE `data` (
   `id` int(11) NOT NULL,
   `blob` blob,
   `owner` varchar(16) DEFAULT NULL,
+  `room` int(11) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-30 15:31:25
+-- Dump completed on 2012-11-30 15:59:53

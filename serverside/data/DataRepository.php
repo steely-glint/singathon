@@ -23,4 +23,11 @@ interface DataRepository {
 	 * @return DataHolder data
 	 */
 	function getData($id);
+	/**
+	 * Fetch array of data belonging to specified room from repository
+	 *
+	 * @param integer $id
+	 * @return array data
+	 */
+	function getRoomData($rid);
 }

@@ -2,10 +2,12 @@
 class DataHolder {
 	private $blob;
 	private $owner;
+	private $room;
 
-	function __construct($blob, $owner) {
+	function __construct($blob, $owner, $room) {
 		$this->blob = $blob;
 		$this->owner = $owner;
+		$this->room = $room;
 	}
 
 	function setBlob($blob) {
@@ -22,4 +24,19 @@ class DataHolder {
 		return $this->owner;
 	}
 
+	function setRoom($room) {
+		$this->room = $room;
+	}
+	function getRoom() {
+		return $this->room;
+	}
+
+
+	function toJSON() {
+		return	"{".
+					"\"blob\":\"".$this->getBlob()."\",".
+					"\"owner\":\"".$this->getOwner()."\",".
+					"\"room\":\"".$this->getRoom()."\"".
+				"}";
+	}
 }

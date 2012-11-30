@@ -27,8 +27,8 @@ class MySQLDataRepository implements DataRepository {
 	}
 
 	public function addData(DataHolder $data) {
-		$query = "INSERT INTO data (blob,owner) ".
-				"VALUES (".$data->getBlob().",".$data->getOwner().")";
+		$query = "INSERT INTO data (blob,owner,room) ".
+				"VALUES (".$data->getBlob().",".$data->getOwner().",".$data->getRoom().")";
 
 		return !$this->voidQuery($query);
 	}
@@ -36,7 +36,11 @@ class MySQLDataRepository implements DataRepository {
 	public function getData($id) {
 		$query = "SELECT * FROM data WHERE id=".$id;
 		$dataArr = $this->singleArrayQuery($query);
-		$data = new DataHolder($dataArr['blob'],$dataArr['owner']);
+		$data = new DataHolder(
+				$dataArr['blob'],
+				$dataArr['owner'],
+				$dataArr['room']
+		);
 		return $data;
 	}
 
@@ -46,7 +50,23 @@ class MySQLDataRepository implements DataRepository {
 		return !$this->voidQuery($query);
 	}
 
-	
+	public function getRoomData($rid) {
+		$query = "SELECT * FROM data WHERE room=".$rid;
+		$dataArr = $this->multiArrayQuery($query);
+		$outArr = array();
+		foreach ( $dataArr as $data) {
+			array_push(
+					$outArr,
+					new DataHolder(
+							$data['blob'],
+							$data['owner'],
+							$data['room']
+					)
+			);
+		}
+
+		return $outArr;
+	}
 	
 	
 	private function singleArrayQuery($query) {
