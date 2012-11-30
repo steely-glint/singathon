@@ -1,6 +1,9 @@
 <?php
 include_once 'DataHolder.php';
 
+/**
+ * A data repository
+ */
 interface DataRepository {
 	/**
 	 * Add data to repository
