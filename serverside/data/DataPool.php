@@ -3,6 +3,9 @@ include_once 'DataRepository.php';
 include_once 'MySQLDataRepository.php';
 include_once 'FileDataRepository.php';
 
+/**
+ * Data pool singleton fascade.
+ */
 class DataPool implements DataRepository {
 	/**
 	 * Singleton instance
@@ -11,19 +14,22 @@ class DataPool implements DataRepository {
 	 */
 	private static $instance;
 	/**
-	 * The data repository to use
+	 * Main data storage.
 	 *
 	 * @var DataRepository
 	 */
 	private $repos;
 	/**
-	 * @var DataRepository
+	 * File storage.
+	 *
+	 * @var FileDataRepository
 	 */
 	private $filerepos;
 
 	private function __construct() {
-		// TODO: mysql login stuffs
+		// Use MySQL as main data storage.
 		$this->repos = new MySQLDataRepository();
+		// Initialize file repository.
 		$this->filerepos = new FileDataRepository();
 	}
 
